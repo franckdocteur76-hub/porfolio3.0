@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "index.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
+```
+
+### Méthode 2 : Vérifier la structure du projet
+
+Assurez-vous que votre structure est exactement :
+```
+portfolio-monteur-video/
+├── index.html
+└── vercel.json (créez-le avec le code ci-dessus)
