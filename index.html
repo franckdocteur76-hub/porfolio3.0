@@ -1,0 +1,694 @@
+        <!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Monteur Vidéo</title>
+    <style>
+        /* === RESET & BASE === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* === NAVIGATION === */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(138, 43, 226, 0.2);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+        }
+
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #8a2be2, #dc143c);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #8a2be2;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* === HERO SECTION === */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1f 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.15) 0%, transparent 70%);
+            top: -250px;
+            right: -250px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(220, 20, 60, 0.1) 0%, transparent 70%);
+            bottom: -200px;
+            left: -200px;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, 30px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #8a2be2, #dc143c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h2 {
+            font-size: 2rem;
+            font-weight: 300;
+            color: #b0b0b0;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1.2s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #909090;
+            font-style: italic;
+            animation: fadeInUp 1.4s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* === SECTIONS === */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #8a2be2, #dc143c);
+        }
+
+        /* === ABOUT SECTION === */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(135deg, #8a2be2, #dc143c);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #c0c0c0;
+            margin-bottom: 1rem;
+        }
+
+        /* === PORTFOLIO SECTION === */
+        .portfolio {
+            background: rgba(138, 43, 226, 0.02);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .video-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(138, 43, 226, 0.2);
+        }
+
+        .video-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.3);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            background: #1a1a1a;
+            cursor: pointer;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-wrapper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .video-wrapper:hover img {
+            transform: scale(1.05);
+        }
+
+        .video-wrapper .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(138, 43, 226, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .video-wrapper:hover .play-button {
+            background: rgba(220, 20, 60, 0.9);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #8a2be2;
+        }
+
+        .video-info p {
+            color: #a0a0a0;
+            font-size: 0.95rem;
+        }
+
+        /* === SERVICES SECTION === */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2.5rem 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(138, 43, 226, 0.2);
+        }
+
+        .service-card:hover {
+            background: rgba(138, 43, 226, 0.1);
+            transform: translateY(-5px);
+            border-color: #8a2be2;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #8a2be2, #dc143c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #e0e0e0;
+        }
+
+        .service-card p {
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+
+        /* === CONTACT SECTION === */
+        .contact {
+            background: rgba(220, 20, 60, 0.02);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #c0c0c0;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            border-radius: 5px;
+            color: #e0e0e0;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #8a2be2;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, #8a2be2, #dc143c);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(138, 43, 226, 0.4);
+        }
+
+        /* === FOOTER === */
+        footer {
+            background: #050505;
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(138, 43, 226, 0.2);
+        }
+
+        footer p {
+            color: #707070;
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1.5rem;
+                flex-wrap: wrap;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero h2 {
+                font-size: 1.3rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav>
+        <ul>
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#apropos">À propos</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="accueil" class="hero">
+        <div class="hero-content">
+            <h1>WANGMBARA OLIVIER</h1>
+            <h2>Monteur Vidéo YouTube & Réseaux Sociaux</h2>
+            <p>Des vidéos percutantes qui captivent votre audience</p>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="apropos">
+        <h2>À Propos</h2>
+        <div class="about-content">
+            <div class="about-image">🎬</div>
+            <div class="about-text">
+                <p>Spécialisé dans le montage de vidéos YouTube et de formats courts (Shorts, TikTok, Instagram Reels), je crée du contenu viral qui engage et convertit. Mon expertise s'étend également aux campagnes publicitaires impactantes pour booster votre présence digitale.</p>
+                <p>Que ce soit pour développer votre chaîne YouTube, créer des shorts addictifs ou lancer une campagne pub percutante, je maîtrise les codes de chaque plateforme pour maximiser votre portée et votre engagement.</p>
+                <p>Je combine rythme dynamique, storytelling efficace et montage moderne pour transformer vos rushs en contenu qui performe. Chaque vidéo est optimisée pour capter l'attention dès les premières secondes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO SECTION -->
+    <section id="portfolio" class="portfolio">
+        <h2>Portfolio</h2>
+        <div class="portfolio-grid">
+            <!-- Video 1 -->
+            <div class="video-item">
+                <div class="video-wrapper" onclick="playVideo(this, 'MP2hH__slzY')">
+                    <img src="https://img.youtube.com/vi/MP2hH__slzY/maxresdefault.jpg" alt="Vidéo YouTube">
+                    <div class="play-button">▶</div>
+                </div>
+                <div class="video-info">
+                    <h3>Vidéo YouTube</h3>
+                    <p>Montage long format avec storytelling captivant et rythme soutenu</p>
+                </div>
+            </div>
+
+            <!-- Video 2 -->
+            <div class="video-item">
+                <div class="video-wrapper" onclick="playVimeoVideo(this, '1154021456')">
+                    <img src="https://vumbnail.com/1154021456.jpg" alt="Contenu Vimeo">
+                    <div class="play-button">▶</div>
+                </div>
+                <div class="video-info">
+                    <h3>Intro vidéo youtube</h3>
+                    <p>Montage vidéo pour la chaine youtube LeCoinStat</p>
+                </div>
+            </div>
+
+            <!-- Video 3 -->
+            <div class="video-item">
+                <div class="video-wrapper" onclick="playVimeoVideo(this, '1154025197')">
+                    <img src="https://vumbnail.com/1154025197.jpg" alt="Contenu Vimeo">
+                    <div class="play-button">▶</div>
+                </div>
+                <div class="video-info">
+                    <h3>Short youtube</h3>
+                    <p>Montage vidéo short pour la chaine youtube Investir Au Pays</p>
+                </div>
+            </div>
+
+            <!-- Video 4 -->
+            <div class="video-item">
+                <div class="video-wrapper" onclick="playVideo(this, '9bZkp7q19f0')">
+                    <img src="https://img.youtube.com/vi/9bZkp7q19f0/maxresdefault.jpg" alt="Projet Client">
+                    <div class="play-button">▶</div>
+                </div>
+                <div class="video-info">
+                    <h3>Projet Client</h3>
+                    <p>Montage créatif adapté aux besoins spécifiques du client</p>
+                </div>
+            </div>
+
+            <!-- Video 5 -->
+            <div class="video-item">
+                <div class="video-wrapper" onclick="playVimeoVideo(this, '1146403573')">
+                    <img src="https://vumbnail.com/1146403573.jpg" alt="Contenu Vimeo">
+                    <div class="play-button">▶</div>
+                </div>
+                <div class="video-info">
+                    <h3>Contenu Vimeo</h3>
+                    <p>Production audiovisuelle de haute qualité avec montage soigné</p>
+                </div>
+            </div>
+
+            <!-- Video 6 -->
+            <div class="video-item">
+                <div class="video-wrapper" onclick="playVideo(this, 'kJQP7kiw5Fk')">
+                    <img src="https://img.youtube.com/vi/kJQP7kiw5Fk/maxresdefault.jpg" alt="Tutoriel / Vlog">
+                    <div class="play-button">▶</div>
+                </div>
+                <div class="video-info">
+                    <h3>Tutoriel / Vlog</h3>
+                    <p>Montage dynamique pour contenu éducatif ou lifestyle</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="services">
+        <h2>Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">▶️</div>
+                <h3>Montage YouTube</h3>
+                <p>Vidéos long format optimisées pour maximiser la rétention et l'engagement de votre audience.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📱</div>
+                <h3>Shorts & Reels</h3>
+                <p>Formats courts percutants pour YouTube Shorts, TikTok et Instagram Reels qui deviennent viraux.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📢</div>
+                <h3>Publicités</h3>
+                <p>Campagnes publicitaires créatives et efficaces pour promouvoir vos produits ou services.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🎨</div>
+                <h3>Miniatures & Titres</h3>
+                <p>Création de miniatures YouTube accrocheuses et titres optimisés pour augmenter le taux de clic.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">✨</div>
+                <h3>Effets & Animations</h3>
+                <p>Ajout d'effets visuels, transitions dynamiques et animations pour un rendu professionnel.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🎵</div>
+                <h3>Sound Design</h3>
+                <p>Mixage audio, musique et effets sonores pour une expérience immersive et qualitative.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="contact">
+        <h2>Contact</h2>
+        <form class="contact-form">
+            <div class="form-group">
+                <label for="nom">Nom</label>
+                <input type="text" id="nom" name="nom" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="sujet">Sujet</label>
+                <input type="text" id="sujet" name="sujet" required>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Envoyer</button>
+        </form>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 WANGMBARA OLIVIER - Monteur Vidéo YouTube & Réseaux Sociaux. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Fonction pour remplacer la miniature par la vidéo YouTube
+        function playVideo(wrapper, videoId) {
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+            iframe.allowFullscreen = true;
+            wrapper.innerHTML = '';
+            wrapper.appendChild(iframe);
+        }
+
+        // Fonction pour remplacer la miniature par la vidéo Vimeo
+        function playVimeoVideo(wrapper, videoId) {
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://player.vimeo.com/video/${videoId}?autoplay=1`;
+            iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+            iframe.allowFullscreen = true;
+            wrapper.innerHTML = '';
+            wrapper.appendChild(iframe);
+        }
+
+        // Gestion du formulaire de contact
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Merci pour votre message ! Je vous répondrai dans les plus brefs délais.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
